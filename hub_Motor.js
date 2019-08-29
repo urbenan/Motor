@@ -29,20 +29,24 @@ wss.addListener("connection",function(ws) {
     console.log("m:"+message);
 
     if(parameterName=="k1" && parameterValue=="on"){
+      motor_direction=1
       step_direction=1;
       step_target=1;
     }
 
     if(parameterName=="k2" && parameterValue=="on"){
+      motor_direction=-1;
       step_direction=-1;
       step_target=1;
     }
 
     if(parameterName=="k1" && parameterValue=="off"){
+      motor_direction=0;
       step_target=0;
     }
 
     if(parameterName=="k2" && parameterValue=="off"){
+      motor_direction=0;
       step_target=0;
     }
 
@@ -88,6 +92,7 @@ var Gpio = require('onoff').Gpio, // Constructor function for Gpio objects.
   GPIO_08 = new Gpio(8, 'out'),      // Export GPIO #8 as an output.
   GPIO_09 = new Gpio(9, 'out'),      // Export GPIO #9 as an output.
   GPIO_10 = new Gpio(10, 'out'),      // Export GPIO #10 as an output.
+  GPIO_17 = new Gpio(17, 'out'),      // Export GPIO #17 as an output.
 iv,ivTarget;
 
 
@@ -96,6 +101,8 @@ var step_number=0; // Total Steps
 var step_current=2; // Current Motor Step 1,2,3,4
 var step_target=1000; // Target Steps
 var step_direction=1; // left:-1, right:1
+
+var motor_direction=0;
 
 step_off();
 
@@ -167,6 +174,20 @@ function step_4() {
 
 
 function drive() {
+
+if(motor_direction==1) {
+  GPIO_17.writeSync(1);
+}
+
+if(motor_direction==-1) {
+  GPIO_17.writeSync(1);
+}
+
+if(motor_direction==0) {
+  GPIO_17.writeSync(0);
+}
+
+
  // console.log("Motor Step");
  if(step_target>0) {
   if(step_direction==1) {
