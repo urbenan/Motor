@@ -93,6 +93,7 @@ var Gpio = require('onoff').Gpio, // Constructor function for Gpio objects.
   GPIO_09 = new Gpio(9, 'out'),      // Export GPIO #9 as an output.
   GPIO_10 = new Gpio(10, 'out'),      // Export GPIO #10 as an output.
   GPIO_17 = new Gpio(17, 'out'),      // Export GPIO #17 as an output.
+  GPIO_18 = new Gpio(18, 'out'),      // Export GPIO #18 as an output.
 iv,ivTarget;
 
 
@@ -176,15 +177,18 @@ function step_4() {
 function drive() {
 
 if(motor_direction==1) {
-  GPIO_17.writeSync(1);
+  GPIO_17.writeSync(0);
+  GPIO_18.writeSync(1);
 }
 
 if(motor_direction==-1) {
   GPIO_17.writeSync(1);
+  GPIO_18.writeSync(0);
 }
 
 if(motor_direction==0) {
   GPIO_17.writeSync(0);
+  GPIO_18.writeSync(0);
 }
 
 
