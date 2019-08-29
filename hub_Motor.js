@@ -1,12 +1,12 @@
 //===============================================
 // Websocket Server
 // Data Hub
-// Programmiert: Andreas Urben 2015
+// Programmiert: Andreas Urben 2019
 //===============================================
 
 // ----------------- Websocket-Server Hub --------------------------------------
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({host: '172.20.10.8',port: 8000});
+var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
 // var wss = new WebSocketServer({host: '192.168.1.40',port: 8000});
 var clients=[];
 clients.push("");
