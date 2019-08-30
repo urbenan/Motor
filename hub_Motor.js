@@ -32,6 +32,10 @@ wss.addListener("connection",function(ws) {
       motor_direction=1
       step_direction=1;
       step_target=1;
+      
+      
+      
+      
     }
 
     if(parameterName=="k2" && parameterValue=="on"){
@@ -94,7 +98,7 @@ var Gpio = require('onoff').Gpio, // Constructor function for Gpio objects.
   GPIO_10 = new Gpio(10, 'out'),      // Export GPIO #10 as an output.
   GPIO_17 = new Gpio(17, 'out'),      // Export GPIO #17 as an output.
   GPIO_18 = new Gpio(18, 'out'),      // Export GPIO #18 as an output.
-iv,ivTarget;
+  iv,ivTarget;
 
 
 
@@ -110,7 +114,7 @@ step_off();
 // Toggle the state of the LED on GPIO #7 every 200ms.
 // Here synchronous methods are used. Asynchronous methods are also available.
 // iv=setInterval(drive,3);
-iv=setInterval(driveMotor,3);
+iv=setInterval(driveMotor,100);
 
 // ivTarget=setInterval(setTarget,2000);
 
