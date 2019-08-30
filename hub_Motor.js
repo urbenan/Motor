@@ -109,7 +109,8 @@ step_off();
 
 // Toggle the state of the LED on GPIO #7 every 200ms.
 // Here synchronous methods are used. Asynchronous methods are also available.
-iv=setInterval(drive,3);
+// iv=setInterval(drive,3);
+iv=setInterval(driveMotor,3);
 
 // ivTarget=setInterval(setTarget,2000);
 
@@ -174,23 +175,25 @@ function step_4() {
 }
 
 
+function driveMotor() {
+  if(motor_direction==1) {
+    GPIO_17.writeSync(0);
+    GPIO_18.writeSync(1);
+  }
+
+  if(motor_direction==-1) {
+    GPIO_17.writeSync(1);
+    GPIO_18.writeSync(0);
+  }
+
+  if(motor_direction==0) {
+    GPIO_17.writeSync(0);
+    GPIO_18.writeSync(0);
+}
+
+}
+
 function drive() {
-
-if(motor_direction==1) {
-  GPIO_17.writeSync(0);
-  GPIO_18.writeSync(1);
-}
-
-if(motor_direction==-1) {
-  GPIO_17.writeSync(1);
-  GPIO_18.writeSync(0);
-}
-
-if(motor_direction==0) {
-  GPIO_17.writeSync(0);
-  GPIO_18.writeSync(0);
-}
-
 
  // console.log("Motor Step");
  if(step_target>0) {
