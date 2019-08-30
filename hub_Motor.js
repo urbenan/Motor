@@ -33,8 +33,8 @@ wss.addListener("connection",function(ws) {
       step_direction=1;
       step_target=1;
       
-      
-      
+      GPIO_17.writeSync(0);
+      GPIO_18.writeSync(1);
       
     }
 
@@ -42,16 +42,26 @@ wss.addListener("connection",function(ws) {
       motor_direction=-1;
       step_direction=-1;
       step_target=1;
+      
+      GPIO_17.writeSync(1);
+      GPIO_18.writeSync(0);
+      
     }
 
     if(parameterName=="k1" && parameterValue=="off"){
       motor_direction=0;
       step_target=0;
+      
+      GPIO_17.writeSync(0);
+      GPIO_18.writeSync(0);
     }
 
     if(parameterName=="k2" && parameterValue=="off"){
       motor_direction=0;
       step_target=0;
+      
+      GPIO_17.writeSync(0);
+      GPIO_18.writeSync(0);
     }
 
 
@@ -114,7 +124,7 @@ step_off();
 // Toggle the state of the LED on GPIO #7 every 200ms.
 // Here synchronous methods are used. Asynchronous methods are also available.
 // iv=setInterval(drive,3);
-iv=setInterval(driveMotor,100);
+// iv=setInterval(driveMotor,100);
 
 // ivTarget=setInterval(setTarget,2000);
 
