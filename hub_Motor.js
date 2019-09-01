@@ -33,8 +33,8 @@ wss.addListener("connection",function(ws) {
       step_direction=1;
       step_target=1;
       
-      GPIO_17.writeSync(0);
-      GPIO_18.writeSync(1);
+      // GPIO_17.writeSync(0);
+      // GPIO_18.writeSync(1);
       
     }
 
@@ -43,8 +43,8 @@ wss.addListener("connection",function(ws) {
       step_direction=-1;
       step_target=1;
       
-      GPIO_17.writeSync(1);
-      GPIO_18.writeSync(0);
+      // GPIO_17.writeSync(1);
+      // GPIO_18.writeSync(0);
       
     }
 
@@ -52,16 +52,16 @@ wss.addListener("connection",function(ws) {
       motor_direction=0;
       step_target=0;
       
-      GPIO_17.writeSync(0);
-      GPIO_18.writeSync(0);
+      // GPIO_17.writeSync(0);
+      // GPIO_18.writeSync(0);
     }
 
     if(parameterName=="k2" && parameterValue=="off"){
       motor_direction=0;
       step_target=0;
       
-      GPIO_17.writeSync(0);
-      GPIO_18.writeSync(0);
+      // GPIO_17.writeSync(0);
+      // GPIO_18.writeSync(0);
     }
 
 
@@ -102,6 +102,8 @@ wss.addListener("connection",function(ws) {
 
 // ------------------------------- Motor Steuerung GPIO ------------------------
 var Gpio = require('onoff').Gpio, // Constructor function for Gpio objects.
+
+  GPIO_02 = new Gpio(2, 'out'),      // Export GPIO #2 as an output.
   GPIO_07 = new Gpio(7, 'out'),      // Export GPIO #7 as an output.
   GPIO_08 = new Gpio(8, 'out'),      // Export GPIO #8 as an output.
   GPIO_09 = new Gpio(9, 'out'),      // Export GPIO #9 as an output.
@@ -124,9 +126,7 @@ step_off();
 // Toggle the state of the LED on GPIO #7 every 200ms.
 // Here synchronous methods are used. Asynchronous methods are also available.
 // iv=setInterval(drive,3);
-// iv=setInterval(driveMotor,100);
-
-// ivTarget=setInterval(setTarget,2000);
+iv=setInterval(driveMotor,3);
 
 function setTarget() {
   step_target=100;
@@ -191,16 +191,22 @@ function step_4() {
 
 function driveMotor() {
   if(motor_direction==1) {
+    GPIO_02.writeSync(1);
+  
     GPIO_17.writeSync(0);
     GPIO_18.writeSync(1);
   }
 
   if(motor_direction==-1) {
+    GPIO_02.writeSync(1);  
+  
     GPIO_17.writeSync(1);
     GPIO_18.writeSync(0);
   }
 
   if(motor_direction==0) {
+    GPIO_02.writeSync(0);  
+  
     GPIO_17.writeSync(0);
     GPIO_18.writeSync(0);
 }
