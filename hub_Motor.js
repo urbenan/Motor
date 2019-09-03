@@ -194,7 +194,7 @@ function driveMotor() {
     GPIO_02.writeSync(1);
   
     GPIO_17.writeSync(0);
-    GPIO_18.writeSync(1);
+    GPIO_18.writeSync(0);
   }
 
   if(motor_direction==-1) {
@@ -207,8 +207,8 @@ function driveMotor() {
   if(motor_direction==0) {
     GPIO_02.writeSync(0);  
   
-    GPIO_17.writeSync(0);
-    GPIO_18.writeSync(0);
+    GPIO_17.writeSync(1);
+    GPIO_18.writeSync(1);
 }
 
 }
