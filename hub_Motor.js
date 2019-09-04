@@ -205,14 +205,10 @@ function driveMotor() {
      motor_direction=-1;
   }
   
-  if(knopf_1 == 0){
+  if(knopf_1 == 0 && knopf_2 == 0){
      motor_direction=0;
   }
   
-  if(knopf_2 == 0){
-     motor_direction=0;
-  }
-
 
   if(motor_direction==1) {
     GPIO_02.writeSync(1);
