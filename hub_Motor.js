@@ -197,11 +197,11 @@ function step_4() {
 
 function driveMotor() {
 
-  if knopf_1 == 1 {
+  if(knopf_1 == 1){
      motor_direction=1;
   }
   
-  if knopf_2 == 1 {
+  if(knopf_2 == 1){
      motor_direction=-1;
   }
 
