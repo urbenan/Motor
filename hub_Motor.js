@@ -127,7 +127,7 @@ var step_direction=1; // left:-1, right:1
 
 var motor_direction=0;
 
-step_off();
+// step_off();
 
 // Toggle the state of the LED on GPIO #7 every 200ms.
 // Here synchronous methods are used. Asynchronous methods are also available.
@@ -229,7 +229,7 @@ function driveMotor() {
   
     GPIO_17.writeSync(0);
     GPIO_18.writeSync(1);
-}
+  }
 
 }
 
