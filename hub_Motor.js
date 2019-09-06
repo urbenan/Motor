@@ -132,7 +132,7 @@ var motor_direction=0;
 // Toggle the state of the LED on GPIO #7 every 200ms.
 // Here synchronous methods are used. Asynchronous methods are also available.
 // iv=setInterval(drive,3);
-iv=setInterval(driveMotor,3);
+iv=setInterval(driveMotorShield,3);
 
 function setTarget() {
   step_target=100;
