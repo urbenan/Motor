@@ -260,7 +260,7 @@ function driveMotorShield() {
   if(motor_direction==0) {
     GPIO_17.writeSync(0);  // Direction
     GPIO_18.writeSync(1);  // Brake
-    GPIO_02.writeSync(0);  // pwm
+    GPIO_02.writeSync(1);  // pwm
   }
 
 }
