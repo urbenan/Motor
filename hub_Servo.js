@@ -281,11 +281,11 @@ function driveServo() {
   // pulseWidth += increment;
   
   if(knopf_1 == 1 && knopf_2 == 0){
-     pulseWidth=pulseWidth+1;
+     pulseWidth=pulseWidth-1;
   }
   
   if(knopf_1 == 0 && knopf_2 == 1){
-     pulseWidth=pulseWidth-1;
+     pulseWidth=pulseWidth+1;
   }
   
   
