@@ -9,7 +9,7 @@ var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
 // var wss = new WebSocketServer({host: '192.168.1.40',port: 8000});
 
-const Gpio = require('pigpio').Gpio;
+
 
 var clients=[];
 clients.push("");
@@ -108,18 +108,20 @@ wss.addListener("connection",function(ws) {
 });
 
 // ------------------------------- Motor Steuerung GPIO ------------------------
-var Gpio = require('onoff').Gpio, // Constructor function for Gpio objects.
+// var Gpio = require('onoff').Gpio, // Constructor function for Gpio objects.
 
-  GPIO_02 = new Gpio(2, 'out'),      // Export GPIO #2 as an output.
-  GPIO_07 = new Gpio(7, 'out'),      // Export GPIO #7 as an output.
-  GPIO_08 = new Gpio(8, 'out'),      // Export GPIO #8 as an output.
-  GPIO_09 = new Gpio(9, 'out'),      // Export GPIO #9 as an output.
-  // GPIO_10 = new Gpio(10, 'out'),      // Export GPIO #10 as an output.
-  GPIO_17 = new Gpio(17, 'out'),      // Export GPIO #17 as an output.
-  GPIO_18 = new Gpio(18, 'out'),      // Export GPIO #18 as an output.
+
+
+//  GPIO_02 = new Gpio(2, 'out'),      // Export GPIO #2 as an output.
+//  GPIO_07 = new Gpio(7, 'out'),      // Export GPIO #7 as an output.
+//  GPIO_08 = new Gpio(8, 'out'),      // Export GPIO #8 as an output.
+//  GPIO_09 = new Gpio(9, 'out'),      // Export GPIO #9 as an output.
+//  GPIO_10 = new Gpio(10, 'out'),      // Export GPIO #10 as an output.
+//  GPIO_17 = new Gpio(17, 'out'),      // Export GPIO #17 as an output.
+//  GPIO_18 = new Gpio(18, 'out'),      // Export GPIO #18 as an output.
   iv,ivTarget;
 
-
+const Gpio = require('pigpio').Gpio;
 const motor = new Gpio(10, {mode: Gpio.OUTPUT});
  
 let pulseWidth = 1000;
