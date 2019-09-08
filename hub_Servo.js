@@ -124,8 +124,8 @@ var iv,ivTarget;
 const Gpio = require('pigpio').Gpio;
 const motor = new Gpio(10, {mode: Gpio.OUTPUT});
  
-let pulseWidth = 1000;
-let increment = 100;
+var pulseWidth = 1000;
+var increment = 100;
 
 var knopf_1 = 0;
 var knopf_2 = 0;
