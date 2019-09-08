@@ -281,19 +281,19 @@ function driveServo() {
   // pulseWidth += increment;
   
   if(knopf_1 == 1 && knopf_2 == 0){
-     pulseWidth + 10;
+     pulseWidth=pulseWidth+10;
   }
   
   if(knopf_1 == 0 && knopf_2 == 1){
-     pulseWidth - 10;;
+     pulseWidth=pulseWidth-10;
   }
   
   
-  if (pulseWidth >= 2000) {
-    increment = -100;
-  } else if (pulseWidth <= 1000) {
-    increment = 100;
-  }
+  // if (pulseWidth >= 2000) {
+   // increment = -100;
+ // } else if (pulseWidth <= 1000) {
+   // increment = 100;
+ // }
 
 }
 
