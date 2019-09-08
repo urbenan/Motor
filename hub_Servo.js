@@ -295,7 +295,7 @@ function driveServo() {
  } else if (pulseWidth <= 1000) {
    pulseWidth=1000;
    // increment = 100;
- // }
+ }
 
 }
 
