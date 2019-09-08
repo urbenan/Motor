@@ -119,7 +119,7 @@ wss.addListener("connection",function(ws) {
 //  GPIO_10 = new Gpio(10, 'out'),      // Export GPIO #10 as an output.
 //  GPIO_17 = new Gpio(17, 'out'),      // Export GPIO #17 as an output.
 //  GPIO_18 = new Gpio(18, 'out'),      // Export GPIO #18 as an output.
-  iv,ivTarget;
+var iv,ivTarget;
 
 const Gpio = require('pigpio').Gpio;
 const motor = new Gpio(10, {mode: Gpio.OUTPUT});
