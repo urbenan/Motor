@@ -275,7 +275,7 @@ function driveMotorShield() {
 
 }
 
-function driveServo {
+function driveServo() {
   motor.servoWrite(pulseWidth);
  
   pulseWidth += increment;
