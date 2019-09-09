@@ -140,7 +140,7 @@ var step_target=1000; // Target Steps
 var step_direction=1; // left:-1, right:1
 
 var motor_direction=0;
-var dutyCicle=0;
+var dutyCicle=10;
 
 // step_off();
 
@@ -233,6 +233,7 @@ function driveMotor() {
   if(dutyCycle > 255) {
     dutyCycle = 255;
   }
+  
   if(dutyCycle < 0) {
     dutyCycle = 0;
   }
