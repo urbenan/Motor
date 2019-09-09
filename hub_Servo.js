@@ -122,7 +122,11 @@ wss.addListener("connection",function(ws) {
 var iv,ivTarget;
 
 const Gpio = require('pigpio').Gpio;
-const motor = new Gpio(10, {mode: Gpio.OUTPUT});
+const motor10 = new Gpio(10, {mode: Gpio.OUTPUT});
+
+const motor02 = new Gpio(02, {mode: Gpio.OUTPUT});
+const motor17 = new Gpio(17, {mode: Gpio.OUTPUT});
+const motor18 = new Gpio(18, {mode: Gpio.OUTPUT});
  
 var pulseWidth = 1000;
 var increment = 100;
@@ -136,6 +140,7 @@ var step_target=1000; // Target Steps
 var step_direction=1; // left:-1, right:1
 
 var motor_direction=0;
+var dutyCicle=0;
 
 // step_off();
 
@@ -209,16 +214,31 @@ function driveMotor() {
 
   if(knopf_1 == 1 && knopf_2 == 0){
      motor_direction=1;
+     
+     dutyCycle+=10;
   }
   
   if(knopf_1 == 0 && knopf_2 == 1){
      motor_direction=-1;
+     
+     dutyCycle-=10;
   }
   
   if(knopf_1 == 0 && knopf_2 == 0){
      motor_direction=0;
   }
   
+  if (dutyCycle > 255) {
+    dutyCycle = 255;
+  }
+  if (dutyCycle < 0) {
+    dutyCycle = 0;
+  }
+  
+  
+  motor17.digitalWrite(1);
+  motor18.digitalWrite(0);
+  motor02.pwmWrite(dutyCycle);
 
   if(motor_direction==1) {
     GPIO_17.writeSync(0);  // Direction
@@ -276,7 +296,7 @@ function driveMotorShield() {
 }
 
 function driveServo() {
-  motor.servoWrite(pulseWidth);
+  motor10.servoWrite(pulseWidth);
  
   // pulseWidth += increment;
   
