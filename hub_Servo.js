@@ -242,6 +242,8 @@ function driveMotor() {
   motor18.digitalWrite(0);
   motor02.pwmWrite(dutyCycle);
 
+
+/*
   if(motor_direction==1) {
     GPIO_17.writeSync(0);  // Direction
     GPIO_18.writeSync(1);  // Brake
@@ -259,6 +261,7 @@ function driveMotor() {
     GPIO_18.writeSync(0);  // Brake
     GPIO_02.writeSync(0);  // pwm
   }
+ */
 
 }
 
