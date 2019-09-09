@@ -217,13 +217,13 @@ function driveMotor() {
   if(knopf_1 == 1 && knopf_2 == 0){
      motor_direction=1;
      
-     dutyCycle+=10;
+     dutyCycle+=1;
   }
   
   if(knopf_1 == 0 && knopf_2 == 1){
      motor_direction=-1;
      
-     dutyCycle-=10;
+     dutyCycle-=1;
   }
   
   if(knopf_1 == 0 && knopf_2 == 0){
