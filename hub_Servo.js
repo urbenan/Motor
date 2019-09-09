@@ -230,10 +230,10 @@ function driveMotor() {
      motor_direction=0;
   }
   
-  if (dutyCycle > 255) {
+  if(dutyCycle > 255) {
     dutyCycle = 255;
   }
-  if (dutyCycle < 0) {
+  if(dutyCycle < 0) {
     dutyCycle = 0;
   }
   
