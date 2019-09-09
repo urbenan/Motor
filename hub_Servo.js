@@ -140,7 +140,7 @@ var step_target=1000; // Target Steps
 var step_direction=1; // left:-1, right:1
 
 var motor_direction=0;
-var dutyCicle=10;
+var dutyCycle=10;
 
 // step_off();
 
