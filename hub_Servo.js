@@ -148,7 +148,7 @@ var dutyCicle=0;
 // Here synchronous methods are used. Asynchronous methods are also available.
 // iv=setInterval(drive,3);
 //iv=setInterval(driveServo,3);
-iv=setInterval(driveMotorShield,3);
+iv=setInterval(driveMotor,3);
 
 
 function setTarget() {
@@ -264,6 +264,7 @@ function driveMotor() {
  */
 
 }
+
 
 function driveMotorShield() {
 
