@@ -122,9 +122,12 @@ wss.addListener("connection",function(ws) {
 var iv,ivTarget;
 
 const Gpio = require('pigpio').Gpio;
+
+
+const GPIO_02 = new Gpio(02, {mode: Gpio.OUTPUT}); 
+
 const GPIO_10 = new Gpio(10, {mode: Gpio.OUTPUT});
 
-const GPIO_02 = new Gpio(02, {mode: Gpio.OUTPUT});
 const GPIO_17 = new Gpio(17, {mode: Gpio.OUTPUT});
 const GPIO_18 = new Gpio(18, {mode: Gpio.OUTPUT});
  
@@ -281,29 +284,30 @@ function driveMotorShield() {
      motor_direction=0;
   }
   
+  dutyCycle=255; //0-255
 
   if(motor_direction==1) {
-    GPIO_17.writeSync(0);  // Direction
-    GPIO_18.writeSync(0);  // Brake
-    GPIO_02.writeSync(1);  // pwm
+    GPIO_17.digitalWrite(0);     // Direction
+    GPIO_18.digitalWrite(0);     // Brake
+    GPIO_02.pwmWrite(dutyCycle); // pwm
   }
-
+  
   if(motor_direction==-1) {
-    GPIO_17.writeSync(1);  // Direction
-    GPIO_18.writeSync(0);  // Brake
-    GPIO_02.writeSync(1);  // pwm
+    GPIO_17.digitalWrite(1);     // Direction
+    GPIO_18.digitalWrite(0);     // Brake
+    GPIO_02.pwmWrite(dutyCycle); // pwm
   }
-
+  
   if(motor_direction==0) {
-    GPIO_17.writeSync(0);  // Direction
-    GPIO_18.writeSync(1);  // Brake
-    GPIO_02.writeSync(1);  // pwm
+    GPIO_17.digitalWrite(0);     // Direction
+    GPIO_18.digitalWrite(1);     // Brake
+    GPIO_02.pwmWrite(dutyCycle); // pwm
   }
 
 }
 
 function driveServo() {
-  motor10.servoWrite(pulseWidth);
+  GPIO_10.servoWrite(pulseWidth);
  
   // pulseWidth += increment;
   
