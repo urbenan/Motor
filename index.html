@@ -109,7 +109,7 @@
  var rz;
 
  // window.addEventListener("load", start, false);
- // setInterval("sendSensorData()",5000);
+ setInterval("sendSensorData()",1000);
  // setInterval("gps()",10);
 
  window.ondevicemotion = function(event) {
@@ -133,12 +133,12 @@ if (clientID==1) {
  }
 
 function sendMessage() {
-  websocket.send(clientID+";*;rx;"+Math.round(rx));
+  // websocket.send(clientID+";*;rx;"+Math.round(rx));
   // websocket.send(clientID+";*;ry;"+Math.round(ry));
   // websocket.send(clientID+";*;k1;"+k1);
 }
 
-setInterval("sendMessage()",100);
+// setInterval("sendMessage()",100);
 
  function sendSensorData() {
    // Beschleunigung
@@ -146,7 +146,7 @@ setInterval("sendMessage()",100);
 //   websocket.send(clientID+";all;ay;"+Math.round(ay*100)/100);
 //   websocket.send(clientID+";all;az;"+Math.round(az*100)/100);
    // Orientierung
-websocket.send(clientID+";all;rx;"+Math.round(dx*10)/10);
+websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
 //   websocket.send(clientID+";all;ry;"+Math.round(ry*10)/10);
 //   websocket.send(clientID+";all;rz;"+Math.round(rz*10)/10);
  }
