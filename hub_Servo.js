@@ -122,11 +122,11 @@ wss.addListener("connection",function(ws) {
 var iv,ivTarget;
 
 const Gpio = require('pigpio').Gpio;
-const motor10 = new Gpio(10, {mode: Gpio.OUTPUT});
+const GPIO_10 = new Gpio(10, {mode: Gpio.OUTPUT});
 
-const motor02 = new Gpio(02, {mode: Gpio.OUTPUT});
-const motor17 = new Gpio(17, {mode: Gpio.OUTPUT});
-const motor18 = new Gpio(18, {mode: Gpio.OUTPUT});
+const GPIO_02 = new Gpio(02, {mode: Gpio.OUTPUT});
+const GPIO_17 = new Gpio(17, {mode: Gpio.OUTPUT});
+const GPIO_18 = new Gpio(18, {mode: Gpio.OUTPUT});
  
 var pulseWidth = 1000;
 var increment = 100;
@@ -239,9 +239,9 @@ function driveMotor() {
   }
   
   
-  motor17.digitalWrite(1);
-  motor18.digitalWrite(0);
-  motor02.pwmWrite(dutyCycle);
+  GPIO_17.digitalWrite(1);
+  GPIO_18.digitalWrite(0);
+  GPIO_02.pwmWrite(dutyCycle);
 
 
 /*
