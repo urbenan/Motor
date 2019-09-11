@@ -71,6 +71,9 @@
          document.getElementById("a2").innerHTML=parameterValue; 
      }; 
 
+     if(parameterName=="s1") {
+         document.getElementById("s1").innerHTML=parameterValue; 
+     }; 
   
 
   }
@@ -109,7 +112,7 @@
  var rz;
 
  // window.addEventListener("load", start, false);
- setInterval("sendSensorData()",1000);
+ // setInterval("sendSensorData()",1000);
  // setInterval("gps()",10);
 
  window.ondevicemotion = function(event) {
@@ -126,7 +129,7 @@
    ry=event.beta;
    rz=event.gamma;
 if (clientID==1) {
-   websocket.send(clientID+";*;rx;"+Math.round(rx*1)/1);
+//   websocket.send(clientID+";*;rx;"+Math.round(rx*1)/1);
 //   websocket.send(clientID+";*;ry;"+Math.round(ry*1)/1);
 //   websocket.send(clientID+";*;rz;"+Math.round(rz*10)/10);
   }
@@ -142,7 +145,7 @@ function sendMessage() {
 
  function sendSensorData() {
    // Beschleunigung
-// websocket.send(clientID+";all;ax;"+Math.round(ax*100)/100);
+//   websocket.send(clientID+";all;ax;"+Math.round(ax*100)/100);
 //   websocket.send(clientID+";all;ay;"+Math.round(ay*100)/100);
 //   websocket.send(clientID+";all;az;"+Math.round(az*100)/100);
    // Orientierung
@@ -163,9 +166,11 @@ websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
   function start() {
     var t1=document.getElementById("K1");
     var t2=document.getElementById("K2");
+    var slider1=document.getElementById("slider1");
 
     t1.addEventListener("touchstart",k1_on,false);
     t1.addEventListener("touchend",k1_off,false);
+    slider1.addEventListener("change",slider1_change,false);
     t2.addEventListener("touchstart",k2_on,false);
     t2.addEventListener("touchend",k2_off,false);
 
@@ -178,6 +183,10 @@ websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
   function k1_off(event) {
     websocket.send(clientID+";*;k1;off");
   }
+  
+  function slider1_change(event) {
+    websocket.send(clientID+";*;s1;"+slider1.value);
+  }
 
   function k2_on(event) {
     websocket.send(clientID+";*;k2;on");
@@ -186,6 +195,11 @@ websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
   function k2_off(event) {
     websocket.send(clientID+";*;k2;off");
   }
+
+
+
+
+
 
 
       </script>
@@ -204,6 +218,7 @@ websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
       <svg width="800" height="1100">
         <rect width="600" height="960" x="50" y="50" rx="50" ry="50" 
           style="fill:yellow;stroke:black;stroke-width:10" />
+          
         <g id="K1" style="fill:lightgrey;stroke:black;stroke-width:10">
           <circle cx="350" cy="750" r="150" />
           <path d="M 300 700 L 400 700 L 355 800 Z" 
@@ -217,6 +232,10 @@ websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
         </g>
 
       </svg>
+      
+      <input type="range" id="slider1" value="0" min="0" max="255">
+      
+      <h2>Slider 1:<div id="s1"></div></h2>
 
       <h1>Programiert A. Urben 2019</h1>
       <h2>Knopf K1:<div id="a1"></div></h2>
