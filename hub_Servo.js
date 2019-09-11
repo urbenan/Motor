@@ -70,6 +70,16 @@ wss.addListener("connection",function(ws) {
       // GPIO_17.writeSync(0);
       // GPIO_18.writeSync(0);
     }
+    
+      if(parameterName=="s1"){
+      knopf_2 = 0;
+      dutyCycle = parameterValue;
+      // motor_direction=0;
+      // step_target=0;
+      
+      // GPIO_17.writeSync(0);
+      // GPIO_18.writeSync(0);
+    }
 
 
     for(var i = 1; i < clients.length; i++) {
