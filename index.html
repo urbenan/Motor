@@ -12,6 +12,8 @@
 
   var numberActiveClients=0;   // Anzahl Aktive Clients
 
+  var slider1=document.getElementById("slider1");
+
   // var wy=0;
 
   function init() {
@@ -73,6 +75,7 @@
 
      if(parameterName=="s1") {
          document.getElementById("s1").innerHTML=parameterValue; 
+         slider1.value(parameterValue);
      }; 
   
 
@@ -166,7 +169,7 @@ websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
   function start() {
     var t1=document.getElementById("K1");
     var t2=document.getElementById("K2");
-    var slider1=document.getElementById("slider1");
+    // var slider1=document.getElementById("slider1");
 
     t1.addEventListener("touchstart",k1_on,false);
     t1.addEventListener("touchend",k1_off,false);
