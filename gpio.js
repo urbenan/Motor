@@ -29,6 +29,8 @@ function start() {
   motor_direction=1;
   dutyCycle=255;
   driveMotorShield();
+  dutyCycle=155;
+  driveMotorShield();
   setTimeout(stop, 3000)
 }
 
