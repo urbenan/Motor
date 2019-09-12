@@ -132,6 +132,7 @@ window.ondeviceorientation = function(event) {
    rx=event.alpha;
    ry=event.beta;
    rz=event.gamma;
+   websocket.send(clientID+";*;rx;"+Math.round(rx*1)/1);
 if (clientID==1) {
 websocket.send(clientID+";*;rx;"+Math.round(rx*1)/1);
 //   websocket.send(clientID+";*;ry;"+Math.round(ry*1)/1);
