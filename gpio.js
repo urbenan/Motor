@@ -28,10 +28,17 @@ iv_start=setInterval(start,10000);
 function start() {
   motor_direction=1;
   dutyCycle=255;
-  driveMotorShield();
+  driveMotorShieldOn();
+  setTimeout(halten, 10)
   dutyCycle=155;
   driveMotorShield();
   setTimeout(stop, 3000)
+}
+
+function halten() {
+  motor_direction=1;
+  dutyCycle=155;
+  driveMotorShield();
 }
 
 function stop() {
@@ -63,3 +70,4 @@ function driveMotorShield() {
   }
 
 }
+
