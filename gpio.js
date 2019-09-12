@@ -26,12 +26,14 @@ var dutyCycle=1;
 iv_start=setInterval(start,10000);
 
 function start() {
+  motor_direction=1;
   dutyCycle=255;
   driveMotorShield;
   setTimeout(stop, 3000)
 }
 
 function stop() {
+  motor_direction=0;
   dutyCycle=0;
   driveMotorShield;
 }
