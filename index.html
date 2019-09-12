@@ -128,12 +128,12 @@ window.addEventListener("deviceorientation", deviceOrientationListener, true);
 //   websocket.send(clientID+";all;az;"+Math.round(az*100)/100);
  }
 
- window.ondeviceorientation = function(event) {
+window.ondeviceorientation = function(event) {
    rx=event.alpha;
    ry=event.beta;
    rz=event.gamma;
 if (clientID==1) {
-//   websocket.send(clientID+";*;rx;"+Math.round(rx*1)/1);
+websocket.send(clientID+";*;rx;"+Math.round(rx*1)/1);
 //   websocket.send(clientID+";*;ry;"+Math.round(ry*1)/1);
 //   websocket.send(clientID+";*;rz;"+Math.round(rz*10)/10);
   }
