@@ -114,7 +114,7 @@
  var ry;
  var rz;
 
-window.addEventListener("deviceorientation", deviceOrientationListener);
+window.addEventListener("deviceorientation", deviceOrientationListener, true);
  // window.addEventListener("load", start, false);
  // setInterval("sendSensorData()",1000);
  // setInterval("gps()",10);
@@ -154,16 +154,16 @@ function sendMessage() {
 
 // setInterval("sendMessage()",100);
 
- function sendSensorData() {
+function sendSensorData() {
    // Beschleunigung
 //   websocket.send(clientID+";all;ax;"+Math.round(ax*100)/100);
 //   websocket.send(clientID+";all;ay;"+Math.round(ay*100)/100);
 //   websocket.send(clientID+";all;az;"+Math.round(az*100)/100);
    // Orientierung
-websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
+// websocket.send(clientID+";all;rx;"+Math.round(rx*10)/10);
 //   websocket.send(clientID+";all;ry;"+Math.round(ry*10)/10);
 //   websocket.send(clientID+";all;rz;"+Math.round(rz*10)/10);
- }
+}
 
 
 // --------------------------- UI Knopf SVG ------------------------------------
