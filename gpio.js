@@ -29,16 +29,15 @@ function start() {
   motor_direction=1;
   dutyCycle=255;
   driveMotorShield();
-  setTimeout(halten, 500);
-  dutyCycle=155;
-  driveMotorShield();
-  setTimeout(stop, 3000);
+  setTimeout(halten, 10);
+  
 }
 
 function halten() {
   motor_direction=1;
   dutyCycle=155;
   driveMotorShield();
+  setTimeout(stop, 3000);
 }
 
 function stop() {
