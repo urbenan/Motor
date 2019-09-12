@@ -7,7 +7,7 @@
 
 // ------------------------------- Motor Steuerung GPIO ------------------------
 
-var iv;
+var iv_start;
 
 const Gpio = require('pigpio').Gpio;
 
@@ -17,7 +17,7 @@ const GPIO_17 = new Gpio(17, {mode: Gpio.OUTPUT});
 const GPIO_18 = new Gpio(18, {mode: Gpio.OUTPUT});
  
 var increment = 100;
-var motor_direction=0;
+var motor_direction=1;
 var dutyCycle=1;
 
 
