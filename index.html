@@ -114,8 +114,9 @@
  var ry;
  var rz;
 
+window.addEventListener("deviceorientation", deviceOrientationListener);
  // window.addEventListener("load", start, false);
- // setInterval("sendSensorData()",1000);
+ setInterval("sendSensorData()",1000);
  // setInterval("gps()",10);
 
  window.ondevicemotion = function(event) {
@@ -137,6 +138,12 @@ if (clientID==1) {
 //   websocket.send(clientID+";*;rz;"+Math.round(rz*10)/10);
   }
  }
+ 
+function deviceOrientationListener(event) {
+  rx=event.alpha;
+  ry=event.beta;
+  rz=event.gamma;
+}
 
 function sendMessage() {
   // websocket.send(clientID+";*;rx;"+Math.round(rx));
