@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+
+var ax;
+var ay;
+var zx;
+var rot_dx;
+var rot_dy;
+var rot_dz;
+
+var kh_w;
+
+window.addEventListener("load", start, false);
+ setInterval("start()",10);
+ setInterval("gps()",10);
+
+window.ondevicemotion = function(event) {
+  ax=event.accelerationIncludingGravity.x;
+  ay=event.accelerationIncludingGravity.y;
+  az=event.accelerationIncludingGravity.z;
+//  start();
+
+}
+
+window.ondeviceorientation = function(event) {
+  rot_dx=event.alpha;
+  rot_dy=event.beta;
+  rot_dz=event.gamma;
+  
+  kh_w=event.webkitCompassHeading;
+
+}
+
+document.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+    var touch = event.touches[0];
+    touch_x=touch.pageX;
+    touch_y=touch.pageY;
+//    console.log("Touch x:" + touch.pageX + ", y:" + touch.pageY);
+}, false);
+
+
+document.addEventListener("gesturechange", function(event) {
+  event.preventDefault();
+  touch_s=event.scale;
+  touch_r=event.rotation;
+ //   console.log("Scale: " + event.scale + ", Rotation: " + event.rotation);
+}, false);
+
+
+
+
+function gps() {
+  navigator.geolocation.getCurrentPosition(GetLocation);
+}
+
+function GetLocation(location) {
+    gps_l=location.coords.latitude;
+    gps_b=location.coords.longitude;
+    gps_h=location.coords.altitude;
+    gps_t=new Date((location.timestamp)*1).toLocaleString();
+}
+
+
+
+function start() {
+  document.getElementById("ax").firstChild.data=Math.round(ax*100)/100;
+  document.getElementById("ay").firstChild.data=Math.round(ay*100)/100;
+  document.getElementById("az").firstChild.data=Math.round(az*100)/100;
+
+  document.getElementById("rot_dx").firstChild.data=rot_dx;
+  document.getElementById("rot_dy").firstChild.data=rot_dy;
+  document.getElementById("rot_dz").firstChild.data=rot_dz;
+  document.getElementById("kh_w").firstChild.data=kh_w;
+
+
+  document.getElementById("gps_l").firstChild.data=gps_l;
+  document.getElementById("gps_b").firstChild.data=gps_b;
+  document.getElementById("gps_h").firstChild.data=gps_h;
+  document.getElementById("gps_t").firstChild.data=gps_t;
+
+  document.getElementById("touch_x").firstChild.data=touch_x;
+  document.getElementById("touch_y").firstChild.data=touch_y;
+
+  document.getElementById("touch_s").firstChild.data=touch_s;
+  document.getElementById("touch_r").firstChild.data=touch_r;
+}
+
+    </script>
+    <style>
+      body {
+        font-family: "Arial";
+        font-size: 30px;
+      }
+     #Beschleunigung {
+//       float: left;
+       width: 100 ;
+     }
+    </style>
+  </head>
+  <body>
+    Andreas Urben HTML Sensor Log<br/>
+    Programmiert 27.03.2013<br/>
+    </br>
+    <div id="Beschleunigung">
+      <div id="Beschleunigung X" >Beschleunigung X</div><div id="ax" >0</div>
+      <div id="Beschleunigung Y" >Beschleunigung Y</div><div id="ay" >0</div>
+      <div id="Beschleunigung Z" >Beschleunigung Z</div><div id="az" >0</div>
+    </div>
+    <div id="Rotation">
+      <div id="Rotation X" >Rotation X</div><div id="rot_dx" >0</div>
+      <div id="Rotation Y" >Rotation Y</div><div id="rot_dy" >0</div>
+      <div id="Rotation Z" >Rotation Z</div><div id="rot_dz" >0</div>
+    </div>
+       <div id="Kompass W" >Kompass W</div><div id="kh_w" >0</div>
+    </div>
+
+    <div id="GPS">
+      <div id="GPS Längengrad" >GPS Laengengrad</div><div id="gps_l" >0</div>
+      <div id="GPS Breitengrad" >GPS Breitengrad</div><div id="gps_b" >0</div>
+      <div id="GPS Höhe" >GPS Hoehe</div><div id="gps_h" >0</div>
+      <div id="GPS Zeitstempel" >GPS Zeitstempel</div><div id="gps_t" >0</div>
+    </div>
+    <div id="Touch">
+      <div id="Touch X" >Touch X</div><div id="touch_x" >0</div>
+      <div id="Touch Y" >Touch Y</div><div id="touch_y" >0</div>
+
+      <div id="Touch Scale" >Touch Scale</div><div id="touch_s" >0</div>
+      <div id="Touch Rotation" >Touch Rotation</div><div id="touch_r" >0</div>
+    </div>
+
+  </body>
+</html>
