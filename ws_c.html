@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+  <meta charset="utf-8" />
+  <title>WebSocket Test</title>
+<head>
+  <script language="javascript" type="text/javascript">
+
+  var wsUri = "wss://192.168.4.1:8080";
+  var output;
+  var senderID, receiverID, parameterName, parameterValue;
+  var clientID=0;
+
+  var numberActiveClients=0;   // Anzahl Aktive Clients
+
+  // var slider1=document.getElementById("slider1");
+
+  // var wy=0;
+
+  function init() {
+    // output = document.getElementById("output");
+    testWebSocket();
+  }
+
+  function testWebSocket() {
+    websocket = new WebSocket(wsUri);
+    websocket.onopen =    function(evt) { onOpen(evt) };
+    // websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
+
+  function onOpen(evt) {
+    writeToScreen("Websocket gestartet");
+  }
+
+  function onClose(evt) {
+    writeToScreen("Websocket beendet");
+  }
+
+  function onMessage(evt) {
+     // messageArray=(evt.data).split(";");
+    message="Hallo WS Secure";
+    websocket.send(message);
+  }
+
+      </script>
+ 
+    </head>
+    <body>
+
+    </body>
+  </html>
