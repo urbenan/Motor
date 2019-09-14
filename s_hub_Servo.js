@@ -4,7 +4,7 @@
 // Programmiert: Andreas Urben 2019
 //===============================================
 
-// Web Server ------------
+// ----------------- Web Server ------------
 const https = require('https');
 const fs = require('fs');
 var connect = require('connect');
@@ -22,22 +22,14 @@ var app = connect();
 app.use(serveStatic(__dirname))
 const server = https.createServer(options, app).listen(8080);
 
-// -----------------------
 
-
-// Web Socket Server -----
-
-
-
-
-
-
-// ----------------- Websocket-Server Hub --------------------------------------
+// ----------------- Websocket-Server Hub ------------------
 var WebSocketServer = require('ws').Server;
-// var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
-var wss = new WebSocketServer({host: server ,port: 8000, 
-    rejectUnauthorized: false
-  });
+var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
+
+//  var wss = new WebSocketServer({host: server ,port: 8000, 
+//    rejectUnauthorized: false
+//  });
 
 
 
