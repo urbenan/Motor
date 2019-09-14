@@ -29,7 +29,10 @@
   }
 
   function onOpen(evt) {
+    message="Hallo WS Secure";
+    websocket.send(message);
     writeToScreen("Websocket gestartet");
+    
   }
 
   function onClose(evt) {
