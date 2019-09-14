@@ -6,7 +6,7 @@
 
 // ----------------- Websocket-Server Hub --------------------------------------
 // var WebSocketServer = require('ws').Server;
-// var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
+var wss = new WebSocketServer({host: 'https://192.168.4.1',port: 8000});
 
 /*
 var WebSocketServer = require('ws').Server;
@@ -15,13 +15,6 @@ var wss = new WebSocketServer({
 });
 */
 
-const server = https.createServer({
-  cert: fs.readFileSync('/path/to/cert.pem'),
-  key: fs.readFileSync('/path/to/key.pem')
-});
-const wss = new WebSocket.Server({ server });
-
-server.listen(8080);
 
 
 var clients=[];
