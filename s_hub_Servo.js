@@ -4,9 +4,42 @@
 // Programmiert: Andreas Urben 2019
 //===============================================
 
+// Web Server ------------
+const https = require('https');
+const fs = require('fs');
+var connect = require('connect');
+var serveStatic = require('serve-static');
+
+var index = fs.readFileSync('sensor.html');
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+var app = connect();
+
+app.use(serveStatic(__dirname))
+const server = https.createServer(options, app).listen(8080);
+
+// -----------------------
+
+
+// Web Socket Server -----
+
+
+
+
+
+
 // ----------------- Websocket-Server Hub --------------------------------------
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
+// var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
+var wss = new WebSocketServer({host: server ,port: 8000, {
+    rejectUnauthorized: false
+  }});
+
+
 
 /*
 var WebSocketServer = require('ws').Server;
@@ -394,26 +427,5 @@ function drive() {
 
 
 
-// ------------------------------- Web Server ----------------------------------
-// var connect = require('connect');
-// var serveStatic = require('serve-static');
-// connect().use(serveStatic(__dirname)).listen(8080);
 
-
-const https = require('https');
-const fs = require('fs');
-var connect = require('connect');
-var serveStatic = require('serve-static');
-
-var index = fs.readFileSync('sensor.html');
-
-const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-};
-
-var app = connect();
-
-app.use(serveStatic(__dirname))
-https.createServer(options, app).listen(8080);
 
