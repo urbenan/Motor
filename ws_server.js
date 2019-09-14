@@ -30,8 +30,8 @@ const server = https.createServer({
 });
 */
 
-// const wss = new WebSocket.Server({ server });
-const wss = new WebSocket.Server({server}, rejectUnauthorized: false});
+const wss = new WebSocket.Server({ server });
+// const wss = new WebSocket.Server({server}, rejectUnauthorized: false});
  
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
