@@ -13,7 +13,8 @@ const options = {
 var app = connect();
 
 app.use(serveStatic(__dirname))
-server=https.createServer(options, app).listen(8080);
+server = https.createServer(options, app)
+server.listen(8080);
 
 
 
@@ -30,7 +31,7 @@ const server = https.createServer({
 */
 
 // const wss = new WebSocket.Server({ server });
-const wss = new WebSocket.Server({host: '192.168.4.1',port: 8080, rejectUnauthorized: false});
+const wss = new WebSocket.Server({server}, rejectUnauthorized: false});
  
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
@@ -39,5 +40,3 @@ wss.on('connection', function connection(ws) {
  
   ws.send('something');
 });
- 
-// server.listen(8080);
