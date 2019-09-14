@@ -1,5 +1,6 @@
 const https = require('https');
 const fs = require('fs');
+var connect = require('connect');
 
 var index = fs.readFileSync('sensor.html');
 
@@ -8,6 +9,13 @@ const options = {
   cert: fs.readFileSync('cert.pem')
 };
 
+var app = connect();
+
+https.createServer(options, app).listen(8080);
+
+
+
+/*
 https.createServer(options, function (req, res) {
   res.writeHead(200);
   // res.end("hello world\n");
@@ -15,6 +23,9 @@ https.createServer(options, function (req, res) {
   res.end(index);
   
 }).listen(8080);
+*/
+
+
 
 
 /*
