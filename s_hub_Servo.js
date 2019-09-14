@@ -6,11 +6,11 @@
 
 // ----------------- Websocket-Server Hub --------------------------------------
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
-// var wss = new WebSocketServer({host: '192.168.1.40',port: 8000});
+// var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
+
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({
-    server: httpsServer, port: 8000
+    server: "https://192.168.4.1", port: 8000
 });
 
 
