@@ -1,6 +1,7 @@
 const https = require('https');
 const fs = require('fs');
 var connect = require('connect');
+var serveStatic = require('serve-static');
 
 var index = fs.readFileSync('sensor.html');
 
@@ -11,6 +12,7 @@ const options = {
 
 var app = connect();
 
+app.use(serveStatic(__dirname))
 https.createServer(options, app).listen(8080);
 
 
