@@ -30,7 +30,7 @@ const server = https.createServer({
 */
 
 // const wss = new WebSocket.Server({ server });
-const wss = new WebSocket.Server({host: '192.168.4.1',port: 8000, rejectUnauthorized: false});
+const wss = new WebSocket.Server({host: '192.168.4.1',port: 8080, rejectUnauthorized: false});
  
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
