@@ -35,9 +35,9 @@ const server = https.createServer(options, app).listen(8080);
 // ----------------- Websocket-Server Hub --------------------------------------
 var WebSocketServer = require('ws').Server;
 // var wss = new WebSocketServer({host: '192.168.4.1',port: 8000});
-var wss = new WebSocketServer({host: server ,port: 8000, {
+var wss = new WebSocketServer({host: server ,port: 8000, 
     rejectUnauthorized: false
-  }});
+  });
 
 
 
