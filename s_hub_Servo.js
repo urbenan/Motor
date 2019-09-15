@@ -118,6 +118,10 @@ wss.addListener("connection",function(ws) {
         dutyCycle = parameterValue;
     }
 
+    if(parameterName=="rx"){
+        dutyCycleServo = parameterValue;
+    }
+
 
     for(var i = 1; i < clients.length; i++) {
       if (clients[i]!=null) {
@@ -359,6 +363,8 @@ function driveServo() {
  
   // pulseWidth += increment;
   
+  
+  /*
   if(knopf_1 == 1 && knopf_2 == 0){
      pulseWidth=pulseWidth-1;
   }
@@ -366,7 +372,9 @@ function driveServo() {
   if(knopf_1 == 0 && knopf_2 == 1){
      pulseWidth=pulseWidth+1;
   }
+  */
   
+  pulseWidth=50+(dutyCycle*10);
   
   if (pulseWidth >= 2000) {
     pulseWidth=2000;
