@@ -12,10 +12,19 @@ var serveStatic = require('serve-static');
 
 var index = fs.readFileSync('sensor.html');
 
+/*
 const options = {
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
 };
+*/
+
+const options = {
+  key: fs.readFileSync('cert/zertifikat-key.pem'),
+  cert: fs.readFileSync('cert/zertifikat-pub.pem')
+};
+
+
 
 var app = connect();
 
@@ -25,7 +34,7 @@ const server = https.createServer(options, app).listen(8080);
 
 // ----------------- Websocket-Server Hub ------------------
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({host: '192.168.4.1',port: 8000, rejectUnauthorized: false});
+var wss = new WebSocketServer({host: 'home.pi.ch',port: 8080, rejectUnauthorized: false});
 
 //  var wss = new WebSocketServer({host: server ,port: 8000, 
 //    rejectUnauthorized: false
