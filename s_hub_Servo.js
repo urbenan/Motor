@@ -381,7 +381,7 @@ function driveServo() {
   if (pulseWidth >= 2000) {
     pulseWidth=2000;
    // increment = -100;
- } else if (pulseWidth <= 1000) {
+ } else if (pulseWidth <= 500) {
    pulseWidth=500;
    // increment = 100;
  }
