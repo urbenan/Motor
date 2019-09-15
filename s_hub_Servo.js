@@ -188,6 +188,8 @@ var increment = 100;
 var knopf_1 = 0;
 var knopf_2 = 0;
 
+var rx = 0;
+
 var step_number=0; // Total Steps
 var step_current=2; // Current Motor Step 1,2,3,4
 var step_target=1000; // Target Steps
