@@ -376,7 +376,7 @@ function driveServo() {
   }
   */
   
-  pulseWidth=50+(rx*10);
+  pulseWidth=50+(rx*2);
   
   if (pulseWidth >= 2000) {
     pulseWidth=2000;
