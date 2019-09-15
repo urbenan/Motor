@@ -6,8 +6,8 @@ var serveStatic = require('serve-static');
 var index = fs.readFileSync('sensor.html');
 
 const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+  key: fs.readFileSync('cert/serverkey.pem'),
+  cert: fs.readFileSync('cert/servercert.pem')
 };
 
 var app = connect();
