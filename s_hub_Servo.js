@@ -199,6 +199,7 @@ var dutyCycle=1;
 // iv=setInterval(drive,3);
 //iv=setInterval(driveServo,3);
 iv=setInterval(driveMotorShield,3);
+iv=setInterval(driveServo,3);
 
 
 function setTarget() {
