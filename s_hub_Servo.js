@@ -29,11 +29,12 @@ const options = {
 var app = connect();
 
 app.use(serveStatic(__dirname))
-const server = https.createServer(options, app).listen(8080);
+server = https.createServer(options, app).listen(8080);
 
 
 // ----------------- Websocket-Server Hub ------------------
-var WebSocketServer = require('ws').Server;
+const WebSocket = require('ws');
+// var WebSocketServer = require('ws').Server;
 // var wss = new WebSocketServer({host: 'home.pi.ch',port: 8080, rejectUnauthorized: false});
 
 
