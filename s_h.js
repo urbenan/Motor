@@ -32,9 +32,9 @@ const wss = new WebSocket.Server({ server });
 var clients=[];
 clients.push("");
 
-wss.addListener("connection",function connection(ws);
+wss.addListener("connection",function connection(ws){});
 
-connection (ws) {
+connection(ws) {
 	var clientID;
 	console.log('client verbunden...');
 	clients.push(ws);
@@ -100,14 +100,14 @@ function close() {
 					clients[n].send(message);
 					console.log(message);
 				}
- 			}
- 			break;
+			}
+			break;
 		}
-    }
+	}
 }
 
 
-// ---------------#------ Motor Steuerung GPIO -------------------
+// -------------------- Motor Steuerung GPIO -------------------
 // var Gpio = require('onoff').Gpio, // Constructor function for Gpio objects.
 //  GPIO_02 = new Gpio(2, 'out'),      // Export GPIO #2 as an output.
 //  GPIO_07 = new Gpio(7, 'out'),      // Export GPIO #7 as an output.
