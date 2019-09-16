@@ -32,20 +32,20 @@ const wss = new WebSocket.Server({ server });
 var clients=[];
 clients.push("");
 
-wss.addListener("connection",ws);
+wss.addListener("connection",function connection(ws);
 
-function ws() {
+connection (ws) {
 	var clientID;
 	console.log('client verbunden...');
 	clients.push(ws);
 	clientID=clients.length-1;
 	// ws.send("Ein neuer Benutzer ist eingetreten");
 	ws.send("0;"+clientID+";setClientID;"+clientID);
-	ws.addListener("message",message);
+	ws.addListener("message",function message(message));
 	ws.addListener("close", close);
 }
 
-function message() {
+message(message) {
 	var messageArray=message.split(";");
 	var senderID=messageArray[0];
 	var receiverID=messageArray[1];
