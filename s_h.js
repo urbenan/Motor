@@ -82,7 +82,7 @@ message = function() {
 	}
 }
 
-ws.addListener("message", message );
+// ws.addListener("message", message );
 wss.addListener("connection", ws );
 
 close = function() {
