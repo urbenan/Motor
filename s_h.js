@@ -38,7 +38,7 @@ ws = function() {
 	clients.push(ws);
 	clientID=clients.length-1;
 	// ws.send("Ein neuer Benutzer ist eingetreten");
-	ws.send("0;"+clientID+";setClientID;"+clientID);
+	this.send("0;"+clientID+";setClientID;"+clientID);
 	ws.addListener("message", message);
 	ws.addListener("close", close);
 }
