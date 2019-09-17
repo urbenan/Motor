@@ -32,9 +32,7 @@ const wss = new WebSocket.Server({ server });
 var clients=[];
 clients.push("");
 
-wss.addListener("connection",function connection(ws){});
-
-connection(ws) {
+ws = function() {
 	var clientID;
 	console.log('client verbunden...');
 	clients.push(ws);
@@ -45,7 +43,7 @@ connection(ws) {
 	ws.addListener("close", close);
 }
 
-message(message) {
+message = function() {
 	var messageArray=message.split(";");
 	var senderID=messageArray[0];
 	var receiverID=messageArray[1];
@@ -84,6 +82,8 @@ message(message) {
 	}
 }
 
+ws.addListener("message", message );
+wss.addListener("connection", ws );
 
 function close() {
 	// emitted when server or client closes connection
