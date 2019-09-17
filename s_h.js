@@ -39,7 +39,7 @@ ws = function() {
 	clientID=clients.length-1;
 	// ws.send("Ein neuer Benutzer ist eingetreten");
 	ws.send("0;"+clientID+";setClientID;"+clientID);
-	ws.addListener("message",function message(message));
+	ws.addListener("message", message);
 	ws.addListener("close", close);
 }
 
@@ -85,7 +85,7 @@ message = function() {
 ws.addListener("message", message );
 wss.addListener("connection", ws );
 
-function close() {
+close = function() {
 	// emitted when server or client closes connection
 	var message;
 	for(var i = 1; i < clients.length; i++) {
