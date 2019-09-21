@@ -20,8 +20,10 @@ const options = {
 */
 
 const options = {
-  key: fs.readFileSync('cert/zertifikat-key.pem'),
-  cert: fs.readFileSync('cert/zertifikat-pub.pem')
+  // key: fs.readFileSync('cert/zertifikat-key.pem'),
+  // cert: fs.readFileSync('cert/zertifikat-pub.pem')
+  key: fs.readFileSync('cert/serverkey.pem'),
+  cert: fs.readFileSync('cert/servercert.pem')
 };
 
 
