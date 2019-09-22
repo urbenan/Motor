@@ -13,7 +13,7 @@ Raspi.init(() => {
     // Init the ADC
     const adc = new ADS1x15({
         i2c,                                    // i2c interface
-        chip: ADS1x15.chips.IC_ADS1015,         // chip model
+        chip: ADS1x15.chips.IC_ADS1115,         // chip model
         address: ADS1x15.address.ADDRESS_0x48,  // i2c address on the bus
         
         // Defaults for future readings
