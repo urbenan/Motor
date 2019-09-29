@@ -22,6 +22,9 @@ function writeConfigRegister() {
   // let config = 0xC583;
   let config = 0xC383;
   const bytes = [(config >> 8) & 0xFF, config & 0xFF];
+
+  const bytesConfig=Buffer.from([0b11000011,0b10000011]);
+
   i2c1.writeI2cBlockSync(0x48, 0x01, 2, Buffer.from(bytes));
 }
 
