@@ -62,7 +62,7 @@ function myRead() {
   console.log(valueADS);
   console.log(voltage);
   
-  consol.log(calcTemp(voltage));
+  console.log(calcTemp(voltage));
 }
 
 
