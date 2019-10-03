@@ -16,12 +16,23 @@ function getVoltageFromValue(value) {
   return value / max * 4.096; // value / mx = % of scale, scale * pga = Volts
 }
 
-function calcTemp(voltage) {
+function calcTempFromVoltage(voltage) {
+  const R_1=10000
+  const U_VCC=3.3;
+  const NTC_A=0.001129148;
+  const NTC_B=0.000234125;
+  const NTC_C=0.0000000876741;
+  
+  let U_NTC=voltage;
+  let R_NTC=0;
   let temperatur;
-  temperatur=Math.log((10000/voltage)*(3300-voltage));
-  temperatur=1/(0.001129148+(0.000234125+(0.0000000876741*temperatur*temperatur))*temperatur); 
-  temperatur=temperatur-273.15;
-  return temperatur;
+  
+  R_NTC=(voltage*R_1)/(U_VCC-U_NTC);
+  temp_steinhart=1/(NTC_A+NTC_B*Math.log(R_NTC)+(NTC_C*Math.pow(Math.log(R_NTC),3)))-273.15;
+  // temperatur=Math.log((10000/voltage)*(3300-voltage));
+  // temperatur=1/(0.001129148+(0.000234125+(0.0000000876741*temperatur*temperatur))*temperatur); 
+  // temperatur=temperatur-273.15;
+  return temp_steinhart;
 }
 
 const i2c1 = i2c.openSync(1);
