@@ -19,12 +19,13 @@ function writeConfigRegister() {
 
 writeConfigRegister();
 
-while (i2c1.readByteSync(I2C_ADDR, 0xF3) === 0) {
-}
+// while (i2c1.readByteSync(I2C_ADDR, 0xF3) !== 0) {
+// } 
 
+// readData;
 // setTimeout(readData,(10000/250)+1); //default
+setTimeout(readData, 500);
 
-readData();
 
 function readData() {
 
