@@ -14,23 +14,24 @@ const i2c1 = i2c.openSync(1);
 
 
 function writeConfigRegister() {
-  // const bytesConfig= Buffer.from([0b00100111]);
-  i2c1.writeI2cBlockSync(I2C_ADDR, 0xF4, 1 , 0x01); 
+  const bytesConfig= Buffer.from([0b00000001]);
+  // i2c1.writeI2cBlockSync(I2C_ADDR, 0xF4, 1 , bytesConfig); 
+  i2c1.writeI2cBlockSync(I2C_ADDR, 0x2A, 1 , bytesConfig); 
+ 
 }
 
 writeConfigRegister();
 
-/*
-while (i2c1.readByteSync(I2C_ADDR, 0xF3) === 0) {
+while (i2c1.readByteSync(I2C_ADDR, 0x00) === 0) {
 }
-
-*/
 
 // setTimeout(readData,(10000/250)+1); //default
 
 readData();
 
-function readData() {
+function readData() { 
+  const accMax=4;   // max accceleration +/-4 g
+  const resADC=12;  // Max Bit by ADC
 
   let var1=0;
   let var2=0;
@@ -42,16 +43,22 @@ function readData() {
   let dig_Y=0;
   let dig_Z=0;
 
+  let accX=0;
+  let accY=0;
+  let accZ=0;
+
   bytes1=Buffer.alloc(2);
   bytes2=Buffer.alloc(2);
   bytes3=Buffer.alloc(2);
 
+  const rawData=i2c1.readByteSync(I2C_ADDR, 0x0C);
+
   i2c1.readI2cBlockSync(I2C_ADDR, 0x01, 2 , bytes1);
-  dig_X=bytes1.readUInt16LE();
+  dig_X=bytes1.readInt16BE();
   i2c1.readI2cBlockSync(I2C_ADDR, 0x03, 2 , bytes2);
-  dig_Y=bytes2.readInt16LE();
+  dig_Y=bytes2.readInt16BE();
   i2c1.readI2cBlockSync(I2C_ADDR, 0x05, 2 , bytes3);
-  dig_Z=bytes3.readInt16LE();
+  dig_Z=bytes3.readInt16BE();
 
 
 /*
@@ -61,21 +68,20 @@ function readData() {
   adc_T=convertBytesToLongValue(adc_T_hex);
 */
 
-/*
-  temp_msb=bytes[0];
-  temp_lsb=bytes[1];
-  temp_xlsb=bytes[2];
-*/
 
-  console.log(bytes);
-  console.log("temp_msb:"+temp_msb);
-  console.log("temp_lsb:"+temp_lsb);
-  console.log("temp_xlsb:"+temp_xlsb);
-  console.log("adc_T:"+adc_T);
+  accX=dig_X/Math.pow(2,resADC)/accMax;
+  accY=dig_Y/Math.pow(2,resADC)/accMax;
+  accZ=dig_Z/Math.pow(2,resADC)/accMax;
+
+  console.log("raw:"+rawData);
 
   console.log("dig_X:"+dig_X);
   console.log("dig_Y:"+dig_Y);
   console.log("dig_Z:"+dig_Z);
+
+  console.log("acc X:"+accX);
+  console.log("acc Y:"+accY);
+  console.log("acc Z:"+accZ);
 
 }
 
