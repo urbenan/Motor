@@ -4,7 +4,7 @@
 // Programmiert: Andreas Urben 2019
 //===============================================
 
-var accX_g=0
+var accX_g=0;
 
 // ----------------- Web Server ------------
 const https = require('https');
