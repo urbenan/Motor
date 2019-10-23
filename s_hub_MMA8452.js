@@ -242,10 +242,3 @@ i2c1.closeSync();
 
 
 
-
-
-
-// ------- Web Server ----------------------------------
-var connect = require('connect');
-var serveStatic = require('serve-static');
-connect().use(serveStatic(__dirname)).listen(8080);
