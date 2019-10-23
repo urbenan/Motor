@@ -4,6 +4,7 @@
 // Programmiert: Andreas Urben 2019
 //===============================================
 
+var accX_g=0
 
 // ----------------- Web Server ------------
 const https = require('https');
@@ -101,6 +102,9 @@ wss.addListener("connection",function(ws) {
     for(var i = 1; i < clients.length; i++) {
       if (clients[i]!=null) {
         clients[i].send(senderID+";"+i+";"+parameterName+";"+parameterValue);
+        
+        clients[i].send(senderID+";"+i+";"+"accX"+";"+accX_g);
+        
       }
     }
   });
@@ -137,6 +141,14 @@ wss.addListener("connection",function(ws) {
 
 
 // ------- I2C MMA8452 read Beschleunigung X, Y, Z -------------------
+
+setInterval(readDataMMA8452, 1000);
+
+function readDataMMA8452(){
+  writeConfigRegister();
+  readData();
+}
+
 const i2c = require('i2c-bus');
  
 const I2C_ADDR = 0x1C;
@@ -221,6 +233,8 @@ function readData() {
   console.log("acc X:"+accX);
   console.log("acc Y:"+accY);
   console.log("acc Z:"+accZ);
+  
+  accX_g=accX;
 
 }
 
