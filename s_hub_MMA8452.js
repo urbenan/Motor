@@ -142,12 +142,14 @@ wss.addListener("connection",function(ws) {
 
 // ------- I2C MMA8452 read Beschleunigung X, Y, Z -------------------
 
-setInterval(readDataMMA8452, 1000);
+
 
 function readDataMMA8452(){
   writeConfigRegister();
   readData();
 }
+
+setInterval(readDataMMA8452, 1500);
 
 const i2c = require('i2c-bus');
  
@@ -168,17 +170,18 @@ function writeConfigRegister() {
   const bytesConfig= Buffer.from([0b00000001]);
   // i2c1.writeI2cBlockSync(I2C_ADDR, 0xF4, 1 , bytesConfig); 
   i2c1.writeI2cBlockSync(I2C_ADDR, 0x2A, 1 , bytesConfig); 
- 
+  while (i2c1.readByteSync(I2C_ADDR, 0x00) === 0) {
+  }
 }
 
-writeConfigRegister();
+// writeConfigRegister();
 
 while (i2c1.readByteSync(I2C_ADDR, 0x00) === 0) {
 }
 
 // setTimeout(readData,(10000/250)+1); //default
 
-readData();
+// readData();
 
 function readData() { 
   const accMax=4;   // max accceleration +/-4 g
