@@ -4,6 +4,8 @@
 // Programmiert: Andreas Urben 2019
 //===============================================
 
+const i2c = require('i2c-bus');
+
 var accX_g=0;
 
 // ----------------- Web Server ------------
@@ -14,12 +16,21 @@ var serveStatic = require('serve-static');
 
 var index = fs.readFileSync('sensor.html');
 
+/*
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+*/
+
 const options = {
   // key: fs.readFileSync('cert/zertifikat-key.pem'),
   // cert: fs.readFileSync('cert/zertifikat-pub.pem')
   key: fs.readFileSync('cert/serverkey.pem'),
   cert: fs.readFileSync('cert/servercert.pem')
 };
+
+
 
 var app = connect();
 
@@ -29,10 +40,29 @@ server = https.createServer(options, app).listen(8080);
 
 // ----------------- Websocket-Server Hub ------------------
 const WebSocket = require('ws');
+// var WebSocketServer = require('ws').Server;
+// var wss = new WebSocketServer({host: 'home.pi.ch',port: 8080, rejectUnauthorized: false});
+
+
 const wss = new WebSocket.Server({ server });
+//  var wss = new WebSocketServer({host: server ,port: 8000, 
+//    rejectUnauthorized: false
+//  });
+
+
+
+/*
+var WebSocketServer = require('ws').Server;
+var wss = new WebSocketServer({
+    server: "https://192.168.4.1", port: 8000
+});
+*/
+
+
 
 var clients=[];
 clients.push("");
+
 
 wss.addListener("connection",function(ws) {
   var clientID;
@@ -41,6 +71,15 @@ wss.addListener("connection",function(ws) {
   clientID=clients.length-1;
   // ws.send("Ein neuer Benutzer ist eingetreten");
   ws.send("0;"+clientID+";setClientID;"+clientID);
+
+
+    function IvSend(){
+       ws.send("0"+";"+"*"+";"+"accX"+";"+accX_g);
+    }
+
+    setInterval(IvSend, 100);
+
+
 
   ws.addListener("message",function(message) {
     var messageArray=message.split(";");
@@ -102,11 +141,19 @@ wss.addListener("connection",function(ws) {
     for(var i = 1; i < clients.length; i++) {
       if (clients[i]!=null) {
         clients[i].send(senderID+";"+i+";"+parameterName+";"+parameterValue);
-        
+
         clients[i].send(senderID+";"+i+";"+"accX"+";"+accX_g);
-        
       }
     }
+
+/*
+    function IvSend(){
+       clients[1].send("0"+";"+"*"+";"+"accX"+";"+accX_g);
+    }
+
+    setInterval(IvSend, 100);
+*/
+
   });
 
   ws.addListener("close", function () {
@@ -139,54 +186,59 @@ wss.addListener("connection",function(ws) {
 
 
 
+// ------- Websocket Client ---------------------------------------
+/*
+const client = new WebSocket("wss://home.pi.ch:8080");
+client.on("open", clientWSopen);
+client.on("close", clientWSclose);
+client.on("message", clientWSmessage);
 
-// ------- I2C MMA8452 read Beschleunigung X, Y, Z -------------------
+  
+function clientWSopen(){
+  console.log("Client Connected");
+}
+
+function clientWSclose(){
+}
+
+function clientWSmessage(evt) {
+     messageArray=(evt.data).split(";");
+     senderID=parseInt(messageArray[0]);
+     receiverID=parseInt(messageArray[1]);
+     parameterName=messageArray[2];
+     parameterValue=messageArray[3];
+
+     if(parameterName=="setClientID" ) {
+       clientID=parseInt(parameterValue);
+       writeToScreen("setClientID="+clientID);
+       message=clientID+";*;confirmClientID;"+clientID;
+       websocket.send(message);
+     }
+}
+*/
+
+// client.send(senderID+";"+"*"+";"+"accX"+";"+accX_g);
 
 
+
+
+// ------- I2C MMA8452 read accleration X, Y, Z -------------------
 
 function readDataMMA8452(){
-  writeConfigRegister();
-  readData();
-}
-
-setInterval(readDataMMA8452, 1500);
-
-const i2c = require('i2c-bus');
- 
-const I2C_ADDR = 0x1C;
-
-function convertBytesToLongValue(bytes) {
-  let value = ((bytes[0] & 0xff) << 12) | ((bytes[1] & 0xff) << 4) | ((bytes[2] & 0xff));
-  // if ((value & 0x80000) !== 0) {
-  //  value -= 1 << 24;
-  // }
-  return value;
-}
-
-const i2c1 = i2c.openSync(1);
-
-
-function writeConfigRegister() {
+  const I2C_ADDR = 0x1C;  
+  const i2c1 = i2c.openSync(1);
+  const accMax=4;   // max accceleration +/-4 g
+  const resADC=12;  // Max bit of ADC
+  
+  // Set Config Register
   const bytesConfig= Buffer.from([0b00000001]);
-  // i2c1.writeI2cBlockSync(I2C_ADDR, 0xF4, 1 , bytesConfig); 
   i2c1.writeI2cBlockSync(I2C_ADDR, 0x2A, 1 , bytesConfig); 
+
+  // Waiting for ready of Data reading 
   while (i2c1.readByteSync(I2C_ADDR, 0x00) === 0) {
   }
-}
 
-// writeConfigRegister();
-
-while (i2c1.readByteSync(I2C_ADDR, 0x00) === 0) {
-}
-
-// setTimeout(readData,(10000/250)+1); //default
-
-// readData();
-
-function readData() { 
-  const accMax=4;   // max accceleration +/-4 g
-  const resADC=12;  // Max Bit by ADC
-
+  // Reading accleration of X, Y, Z 
   let var1=0;
   let var2=0;
   let t_fine=0;
@@ -214,34 +266,38 @@ function readData() {
   i2c1.readI2cBlockSync(I2C_ADDR, 0x05, 2 , bytes3);
   dig_Z=bytes3.readInt16BE();
 
-
-/*
-  bytes=Buffer.alloc(3);
-  i2c1.readI2cBlockSync(I2C_ADDR, 0xFA, 3 , bytes);
-  adc_T_hex=bytes;
-  adc_T=convertBytesToLongValue(adc_T_hex);
-*/
-
-
   accX=dig_X/Math.pow(2,resADC)/accMax;
   accY=dig_Y/Math.pow(2,resADC)/accMax;
   accZ=dig_Z/Math.pow(2,resADC)/accMax;
 
+  // Consol Log 
   console.log("raw:"+rawData);
-
   console.log("dig_X:"+dig_X);
   console.log("dig_Y:"+dig_Y);
   console.log("dig_Z:"+dig_Z);
-
   console.log("acc X:"+accX);
   console.log("acc Y:"+accY);
   console.log("acc Z:"+accZ);
   
   accX_g=accX;
+  
 
+  i2c1.closeSync();
 }
 
-i2c1.closeSync();
+  setInterval(readDataMMA8452, 100);
+// client.send("0"+";"+"*"+";"+"accX"+";"+accX_g);
+
+
+// readDataMMA8452();
+
+
+
+
+
+
+
+
 
 
 
