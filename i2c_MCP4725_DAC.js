@@ -8,77 +8,80 @@ const i2c = require('i2c-bus');
 
 // write Data  V_out=(V_ref x Dn)/4096
 
-function writeData(){
-  const I2C_ADDR = 0x60;  
+let Dn=0;
+let n=0;
+
+// 4010->20mA
+//  810-> 4mA
+
+// 0.0051813
+// Dn=((mA-4)/0.0051813)+785     12mA
+
+while (Dn<=4095) {
+  writeData(Math.floor(((8.2-4)/(16/(4010-810)))+810));
+  // writeData(4010); 
+  Dn=Dn+1;
+  while (n<10000000) {
+    n++;
+  }
+  n=0;
+}
+
+function writeData(Dn){
+  const I2C_ADDR = 0x62;   //0x60
+  // const I2C_ADDR = 0x76;
+
   const i2c1 = i2c.openSync(1);
-  const accMax=4;   // max accceleration +/-4 g
   const resADC=12;  // Max bit of 
   let V_ref=3.3;    // VDD
   let V_out=1.5;
-  let Dn=(V_out*4096)/V_ref;   // Input Code
+  // let Dn=(V_out*4096)/V_ref;   // Input Code
+  let bytesData = Buffer.alloc(2);
+
+  // const bytes = [(config >> 8) & 0xFF, config & 0xFF];
+  //   let value = ((bytes[0] & 0xff) << 12) | ((bytes[1] & 0xff) << 4) | 
+
+  // Dn=Math.floor(4095/4);
+  //Dn=4095;
+  let log="";
+  let logStr="";
+  let log1=0b00000000;
+  let log2=0b00000000;
+  let log3=0b00000000;
+
+
+  log=(Dn).toString(2);
   
+  log1=parseInt(log,2)<<4;
+  // log1=log1<<4;
+  logStr=log1.toString(2);
   
-  // Set Config Register            12345678,   12345678
-  const bytesConfig= Buffer.from([0b10000000, 0b00000000]);
-  i2c1.writeI2cBlockSync(I2C_ADDR, 0b01000000, 2, bytesConfig); 
+  if(Dn>15){ 
+    log2=parseInt(logStr.substring(0,8-(16-logStr.length)),2);
+    log3=parseInt(logStr.substring(8-(16-logStr.length),16),2);
+  }
+  if(Dn<=15){ 
+    log2=0b00000000;
+    log3=parseInt(logStr,2);
+  }
 
-  // Waiting for ready of Data reading 
-  // while (i2c1.readByteSync(I2C_ADDR, 0x00) === 0) {
-  // }
 
-  // Write 12-Bit DAC Value
+
+  bytesData[0]=log2;
+  bytesData[1]=log3;
+
+  // bytesData.writeUInt16LE(Dn,0,2);
+  // const bytesData= Buffer.from([log2, log3]);
   
+  // Set Data Register            12345678,   12345678
+  // const bytesData= Buffer.from([0b01111111, 0b11110000]);
+  // const bytesData= Buffer.from([0b01111111, 0b11000000]);
+     // const bytesData= Buffer.from([0b11111111, 0b11110000]);
+  i2c1.writeI2cBlockSync(I2C_ADDR, 0x40, 2, bytesData); 
+  console.log(log1.toString(2));
+  console.log(log2.toString(2));
+  console.log(log3.toString(2));
+
+  console.log(logStr.length);
   
-  /*
-  let var1=0;
-  let var2=0;
-  let t_fine=0;
-
-  let bytes = Buffer.alloc(6);
-
-  let dig_X=0; 
-  let dig_Y=0;
-  let dig_Z=0;
-
-  let accX=0;
-  let accY=0;
-  let accZ=0;
-
-  bytes1=Buffer.alloc(2);
-  bytes2=Buffer.alloc(2);
-  bytes3=Buffer.alloc(2);
-
-  const rawData=i2c1.readByteSync(I2C_ADDR, 0x0C);
-
-  i2c1.readI2cBlockSync(I2C_ADDR, 0x01, 2 , bytes1);
-  dig_X=bytes1.readInt16BE();
-  i2c1.readI2cBlockSync(I2C_ADDR, 0x03, 2 , bytes2);
-  dig_Y=bytes2.readInt16BE();
-  i2c1.readI2cBlockSync(I2C_ADDR, 0x05, 2 , bytes3);
-  dig_Z=bytes3.readInt16BE();
-
-  accX=dig_X/Math.pow(2,resADC)/accMax;
-  accY=dig_Y/Math.pow(2,resADC)/accMax;
-  accZ=dig_Z/Math.pow(2,resADC)/accMax;
-
-  // Consol Log 
-  console.log("raw:"+rawData);
-  console.log("dig_X:"+dig_X);
-  console.log("dig_Y:"+dig_Y);
-  console.log("dig_Z:"+dig_Z);
-  console.log("acc X:"+accX);
-  console.log("acc Y:"+accY);
-  console.log("acc Z:"+accZ);
-  
-  accX_g=accX;
-  
-
-  i2c1.closeSync();
 }
-
-  setInterval(readDataMMA8452, 100);
-// client.send("0"+";"+"*"+";"+"accX"+";"+accX_g);
-
-
-// readDataMMA8452();
-*/
